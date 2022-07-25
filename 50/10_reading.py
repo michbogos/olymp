@@ -15,16 +15,13 @@ count = 0
 
 keys = list(d.keys())
 
-while True:
+for i in range(100):
     f = False
     for key in d:
         d[key] -= 1
         try:
             index = keys.index(s-key)
-            if keys[index] == key:
-                count += 1
-                f = True
-            elif d[keys[index]] > 0:
+            if d[keys[index]] > 0:
                 count += 1
                 f = True
         except:

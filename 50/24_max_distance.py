@@ -2,6 +2,13 @@ n, m = [int(i) for i in input().split()]
 
 nums = [int(i) for i in input().split()]
 
-nums = [(n/2)-i for i in nums]
+ns = []
 
-print(abs(max(nums))-abs(min(nums)))
+for i in nums:
+    if min(i, n-i) == n-i:
+        ns = (n-i)*-1
+
+
+nums.sort()
+
+print(nums[-1]+nums[-2])
