@@ -5,6 +5,8 @@ i = 0
 j = len(nums)-1
 m = -1
 
+nums.sort()
+
 while i != j:
     if nums[i] + nums[j] > s:
         if (nums[i] + nums[j] > m) and nums[i] + nums[j] < s:

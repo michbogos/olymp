@@ -1,2 +1,1 @@
-num = ""
-for i in range
+print(int(int(input())*2/3))
