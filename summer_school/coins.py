@@ -9,13 +9,11 @@ for i in range(50):
     mid = (r+l)//2
     if f(mid) <= k:
         l = mid
-    if f(mid) > k:
+    else:
         r = mid
 
-if l >  k:
-    print(int(r))
+if l <  k and r < k:
+    print(max(int(r), int(l)))
     exit()
-if r > k:
-    print(int(l))
 else:
     print(int(mid))
