@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 #define G(i) ((i) & -(i))
-#define SIZE 100001
+#define SIZE 200000
 
 int A[SIZE];
 
