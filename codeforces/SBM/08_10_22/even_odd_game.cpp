@@ -15,28 +15,27 @@ int main(){
             cin >> arr[i];
         }
         sort(arr.rbegin(), arr.rend());
-        int a = 0;
-        int b = 0;
-        for(int i = 0; i < arr.size(); i++){
-            if(i%2 == 0){
-                if(arr[i] % 2 == 0){
+        long long a = 0;
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 0) {
+                if (arr[i] % 2 == 0) {
                     a += arr[i];
                 }
             }
-            else{
-                if(arr[i] % 2 == 1){
-                    b += arr[i];
+            else {
+                if (arr[i] % 2 == 1) {
+                    a -= arr[i];
                 }
             }
         }
-        if(a > b){
+        if(a == 0){
+            printf("Tie\n");
+        }
+        else if(a > 0){
             printf("Alice\n");
         }
-        else if(b > a){
-            printf("Bob\n");
-        }
         else{
-            printf("Tie\n");
+            printf("Bob\n");
         }
     }
     return 0;
