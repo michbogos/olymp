@@ -1,9 +1,9 @@
 #include<stdio.h>
 #define ll long long
 
-ll arr[1000002];
-ll prefix[1000002];
-ll b[1000002];
+ll arr[1000003];
+ll prefix[1000003];
+ll b[1000003];
 int main(){
     ll n;
     scanf("%lld", &n);
@@ -16,7 +16,8 @@ int main(){
         ll l, r, c;
         scanf("%lld %lld %lld", &l, &r, &c);
         b[l] += c;
-        b[r+1] -= (r-l+1)*c; 
+        b[r+1] -= c+(r-l+1)*c;
+        b[r+2] += (r-l+1)*c;
     }
     for(ll i = 0; i<n; i++){
         prefix[i+1] = prefix[i] + b[i+1];
