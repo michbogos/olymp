@@ -10,10 +10,9 @@ for t in range(int(input())):
         except:
             d[num] = 1
     
-    for i in d:
-        if d[i]%2 == 1:
-            count += 1
-        else:
-            count -= 1
-    
+    while True:
+        flag = False
+        for i in d:
+            if d[i] == 
+
     print(count)
