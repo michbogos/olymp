@@ -36,6 +36,11 @@ int main(){
             }
         }
     }
+    if(dist[f] == 1000000000){
+        cout << -1;
+    }
+    else{
     cout << dist[f];
+    }
     return 0;
 }
