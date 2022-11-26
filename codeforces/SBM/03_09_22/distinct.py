@@ -1,18 +1,7 @@
 for t in range(int(input())):
-    int(input())
-    d = {}
-    nums = [int(i) for i in input().split()]
-    count = 1
-
-    for num in nums:
-        try:
-            d[num] += 1
-        except:
-            d[num] = 1
-    
-    while True:
-        flag = False
-        for i in d:
-            if d[i] == 
-
-    print(count)
+    n = int(input())
+    nums = len(set([int(i) for i in input().split()]))
+    if nums%2 == n%2:
+        print(nums)
+    else:
+        print(nums-1)

@@ -3,12 +3,11 @@ for _ in range(int(input())):
     matrix = [[] for _ in range(n)]
     for i in range(n):
         matrix[i] = [int(i) for i in input().split()]
-    for x in range(n):
-        for y in range(m):
-            try:
-                res = 0
-                for i in range(max(n, m)):
-            except:
+
+    ly = []
+    tx = []
+    bx = []
+    ry = []
                 
     
     print(matrix)
