@@ -29,6 +29,8 @@ def compare(a, b):
             if a.c > b.c:
                 return 1
     return res
+
+arr = []
         
 
 for i in range(int(input())):
@@ -37,9 +39,11 @@ for i in range(int(input())):
     a = input()
     d = input()
     accounts.append(account(a, b, c, d))
+    arr.append(".".join([a, b, c, d]))
 
 accounts.sort()
+arr.sort()
 
-for i in accounts[::-1]:
-    print(i.a, i.b, i.c, i.d)
+for i in arr[::-1]:
+    print(i.replace(".", " "))
 
