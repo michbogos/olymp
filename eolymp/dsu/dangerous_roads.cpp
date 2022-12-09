@@ -4,53 +4,70 @@
 
 using namespace std;
 
-int dfs(int n, vector<vector<int>> &g, vector<int> &visited, vector<int> &sorted){
-    if(visited[n] == 2){
-        return 0;
+int get(int u, vector<int> &parent){
+    if(parent[u] == u){
+        return u;
     }
-    if(visited[n] == 1){
-        cout << "-1\n";
-        exit(0);
+    else{
+        return parent[u] = get(parent[u], parent);
     }
-    visited[n] = 1;
-    for(int edge:g[n]){
-        dfs(edge, g, visited, sorted);
-    }
-    visited[n] = 2;
-    sorted.push_back(n);
-    return 0;
 }
+
+
+void Union(int x, int y, vector<int> &parent)
+{
+int x1 = get(x, parent);
+int y1 = get(y, parent);
+if (x1 == y1) return;
+parent[x1] = y1;
+}
+
+
+struct Edge{
+    int u;
+    int v;
+    int t;
+};
+
+bool sorter(Edge const& lhs, Edge const& rhs){
+    return lhs.t < rhs.t;
+}
+
+
 
 int main(){
     int n, m;
     cin >> n >> m;
-    vector<vector<int>> g(n);
-    for(int i = 0 ; i < m; i++){
-        int u, v;
-        cin >> u >> v;
+    vector<Edge> edges(m);
+    vector<Edge> edges_reserve(m);
+    for(int i = 0; i < m; i++){
+        int u, v, t;
+        cin >> u >> v >> t;
         u --;
         v --;
-        g[u].push_back(v);
+        edges[i] = {u, v, t};
+        edges_reserve[u] = {-1, v, t};
     }
-    vector<int> visited(n, 0);
-    vector<int> sorted;
-    int count = n;
-
-    bool flag = false;
-
-    while(!flag){
-        flag = false;
-        for(int i = 0; i<n;i++){
-            if(visited[i] != 2){
-                dfs(i, g, visited, sorted);
-                flag = true;
+    sort(edges.begin(), edges.end(), &sorter);
+    int mx = 0;
+    bool s = false;
+    bool f = false;
+    vector<int> parent(n);
+    for(int i = 0 ;i < n; i++){
+        parent[i] = i;
+    }
+    for(auto edge:edges){
+        Union(edge.u, edge.v, parent);
+        if(get(0, parent) == get(n-1, parent)){
+            cout << "Correct";
+            for(int i = 0; i < n; i++){
+                if(get(i, parent) == get(0, parent)){
+                    mx = max(edges[i].t, mx);
+                }
             }
         }
-    }
 
-    for(auto i = sorted.rbegin(); i != sorted.rend();i++){
-        cout << *i+1 << " ";
     }
-
+    cout << mx;
     return 0;
 }
