@@ -32,7 +32,7 @@ int main(){
         for(int i = 0 ; i < m; i++){
             int u, v;
             scanf("%d %d", &u, &v);
-            if(u >= k || v >= k){
+            if(u > k && v > k){
                 if(get(u, parent) == get(v, parent)){
                     count ++;
                 }

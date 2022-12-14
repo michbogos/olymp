@@ -46,7 +46,6 @@ int main(){
         u --;
         v --;
         edges[i] = {u, v, t};
-        edges_reserve[u] = {-1, v, t};
     }
     sort(edges.begin(), edges.end(), &sorter);
     int mx = 0;
@@ -57,17 +56,14 @@ int main(){
         parent[i] = i;
     }
     for(auto edge:edges){
-        Union(edge.u, edge.v, parent);
-        if(get(0, parent) == get(n-1, parent)){
-            cout << "Correct";
-            for(int i = 0; i < n; i++){
-                if(get(i, parent) == get(0, parent)){
-                    mx = max(edges[i].t, mx);
-                }
-            }
+        if(parent[edge.u] != parent[edge.v]){
+            Union(edge.u, edge.v, parent);
+        }
+        if(get(0, parent)==get(n-1, parent)){
+            cout << edge.t;
+            break;
         }
 
     }
-    cout << mx;
     return 0;
 }
