@@ -9,7 +9,7 @@ int main(){
     vector<int> add;
     vector<int> get;
     int n, m, num, u;
-    u = -1
+    u = -1;
     cin >> n >> m;
     for(int i = 0; i < n; i++){
         cin >> num;
