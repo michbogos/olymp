@@ -7,7 +7,7 @@ int main(){
     int t;
     cin >> t;
     while(t--){
-        set<pair<int, int>> s;
+        multiset<pair<int, int>> s;
         int n;
         cin >> n;
         while(n--){
