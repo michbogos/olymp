@@ -45,7 +45,7 @@ int main(){
     for(int i = 0; i < m; i++){
         int u, v, t;
         scanf("%d %d %d", &u, &v, &t);
-        if(u-1 == *it || v-1 == *it){
+        if(dangerous.find(u-1) != dangerous.end() || dangerous.find(v-1) != dangerous.end()){
             dangerous_edges.push_back({t, {v-1, u-1}});
             it = next(it);
         }
@@ -64,10 +64,8 @@ int main(){
     }
     for(int i = 0; i < p; i++){
         if(repr(dangerous_edges[i].second.first, dsu) != repr(dangerous_edges[i].second.second, dsu)){
-            if(dangerous.find(dangerous_edges[i].second.first) != dangerous.end() || dangerous.find(dangerous_edges[i].second.second) != dangerous.end()){
-                unite(dangerous_edges[i].second.first, dangerous_edges[i].second.second, dsu);
-                count += dangerous_edges[i].first;
-            }
+            unite(dangerous_edges[i].second.first, dangerous_edges[i].second.second, dsu);
+            count += dangerous_edges[i].first;
         }
     }
     bool flag = true;
