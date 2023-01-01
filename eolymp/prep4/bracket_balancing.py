@@ -17,5 +17,4 @@ def check(brackets):
     else:
         return "No"
 
-for i in range(int(input())):
-    print(check(input()))
+print(check(input()))
