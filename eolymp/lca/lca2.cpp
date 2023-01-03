@@ -3,35 +3,32 @@
 
 using namespace std;
 
-int t = 0;
-vector<vector<int>> g(1001);
-vector<int> enter(1001);
-vector<int> leave(1001);
-vector<vector<int>> up(1001, vector<int>(13, 0));
+long t = 0;
+vector<vector<int>> g(100001);
+vector<vector<int>> up(100001, vector<int>(17, 0));
+vector<int> enter(100001);
+vector<int> leave(100001);
 
-void dfs(int u, int parent){
+void dfs(long u, long ancestor){
     enter[u] = t++;
-    up[u][0] = parent;
-    for(int i = 1; i <= 12; i++){
-        up[u][i] = up[up[u][i-1]][u-1];
-    }
-    for(auto v:g[u]){
-        if(v!=parent){
-            dfs(v, u);
-        }
+    up[u][0] = ancestor;
+    for(long i = 1; i <= 16; i++)
+        up[u][i] = up[up[u][i-1]][i-1];
+    for(long v : g[u]){
+        if(v != ancestor){
+        dfs(v, u);}
     }
     leave[u] = t++;
-    return;
 }
 
-bool parent(int a, int b){
+bool parent(long a, long b){
     return (enter[a] <= enter[b]) && (leave[a] >= leave[b]);
 }
 
-int lca(int a, int b){
+long lca(long a, long b){
     if(parent(a, b)) return a;
-    if(parent(b, a)) return b;
-    for(int i = 12; i >= 0; i--){
+    if(parent(b, a))return b;
+    for(long i = 16; i >= 0; i--){
         if(!parent(up[a][i], b)){
             a = up[a][i];
         }
@@ -40,28 +37,29 @@ int lca(int a, int b){
 }
 
 int main(){
-    int n, m;
+    long n, m;
     cin >> n >> m;
-    for(int i = 1; i < n; i++){
-        int num;
+    for(long i = 1; i < n; i++){
+        long num;
         cin >> num;
         g[num].push_back(i);
+        g[i].push_back(num);
     }
     dfs(0, 0);
-    int a1, a2, x, y, z;
+    long a1, a2, x, y, z;
     cin >> a1 >> a2;
     cin >> x >> y >> z;
-    vector<pair<int, int>> queries(m);
-    vector<int> a;
-    a.push_back(a1);
-    a.push_back(a2);
-    for(int i = 2; i < 2*m; i++){
-        a.push_back((a[i-2]*x + y*a[i-1]+z)%n);
+    vector<int> a(2*m+1);
+    a[1] = a1;
+    a[2] = a2;
+    for(long i = 3; i < 2*m+1; i++){
+        a[i] = (a[i-2]*x + y*a[i-1]+z)%n;
     }
-    int v = lca(a1, a2);
-    int s = v;
-    for(int i = 0; i < m; i++){
-        s += lca((a[2*i-1]+v)%n, a[i*2]);
+    long v = lca(a1, a2);
+    long s = v;
+    for(long i = 2; i <= m; i++){
+        v = lca((a[2*i-1]+v)%n, a[i*2]);
+        s += v;
     }
     cout << s;
     return 0;
