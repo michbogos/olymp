@@ -92,6 +92,7 @@ int main() {
             c++;
         }
     }
-    cout << max( (numberOfStronglyConnectedCmponents - out.size()), (numberOfStronglyConnectedCmponents - in.size()) );
+    // cout << max( (numberOfStronglyConnectedCmponents - out.size()), (numberOfStronglyConnectedCmponents - in.size()) );
+    cout << c << "\n";
     return 0;
 }
