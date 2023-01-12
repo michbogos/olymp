@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
-#include<unordered_set>
+#include<set>
+#include<algorithm>
 
 using namespace std;
 
@@ -49,25 +50,30 @@ int main(){
             dfs1(i);
         }
     }
+
     used.assign(n, false);
-    for(int i = n-1; i >= 0; i--){
+    reverse(order.begin(), order.end());
+
+    for(auto i : order){
         if(!used[i]){
             dfs2(i);
             color ++;
         }
     }
-    unordered_set<int> us;
-    vector<int> resvec;
-    for(int i = 0; i < n ;i++){
-        if(us.count(components[i]) == 0){
-            us.insert(components[i]);
-            resvec.push_back(i);
+    vector<bool> has(color, true);
+    for(int i=0; i< g.size(); i++){
+        for(int u = 0; u < g[i].size(); u++){
+            if(components[i] != components[u]){
+                has[components[i]] = false;
+            }
         }
     }
-    cout << us.size() << "\n";
-    for(int i : resvec){
-        cout << i+1 << " ";
+    set<int> unique;
+    cout << count(has.begin(), has.end(), true) << "\n";
+    for(int i  = 0; i < components.size(); i++){
+        if(has[components[i]] && unique.count(components[i]) == 0){
+            cout << i+1 << " ";
+        }
     }
-    cout << "\n";
     return 0;
 }
