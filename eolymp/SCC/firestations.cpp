@@ -60,18 +60,35 @@ int main(){
             color ++;
         }
     }
-    vector<bool> has(color, true);
+    vector<bool> hasin(color, true);
+    vector<bool> hasout(color, true);
     for(int i=0; i< g.size(); i++){
         for(int u = 0; u < g[i].size(); u++){
             if(components[i] != components[u]){
-                has[components[i]] = false;
+                hasin[components[i]] = false;
             }
         }
     }
+
+    for(int i=0; i< gt.size(); i++){
+        for(int u = 0; u < gt[i].size(); u++){
+            if(components[i] != components[u]){
+                hasout[components[i]] = false;
+            }
+        }
+    }
+    int count = 0;
+    vector<bool> include(color, false);
+    for(int i = 0; i < hasin.size(); i++){
+        if(hasin[i] != hasout[i]){
+            count ++;
+            include[i] = true;
+        }
+    }
+    cout << count << "\n";
     set<int> unique;
-    cout << count(has.begin(), has.end(), true) << "\n";
     for(int i  = 0; i < components.size(); i++){
-        if(has[components[i]] && unique.count(components[i]) == 0){
+        if(include[components[i]] && unique.count(components[i]) == 0){
             cout << i+1 << " ";
         }
     }

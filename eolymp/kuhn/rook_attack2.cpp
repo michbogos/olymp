@@ -24,20 +24,22 @@ bool kuhn(int u){
 
 
 int main(){
-    int n;
-    cin >> n;
-    vector<string> mat(n);
-    vector<string> mat_rotated(n);
-    vector<vector<int>> horizontal(n, vector<int>(n));
-    vector<vector<int>> vertical(n, vector<int>(n));
-    int color = 0;
-    int idx = 0;
-    while(cin >> mat[idx]){
-        idx++;
-    };
-    for(int i = idx; i < n; i++){
-        mat[i] = string(n, '.');
+    int n, m, k;
+    while(cin >> n>> m>> k){
+    vector<string> mat(n, string(m, '.'));
+    vector<string> mat_rotated(m, string(n, '.'));
+    vector<vector<int>> horizontal(n, vector<int>(m));
+    vector<vector<int>> vertical(m, vector<int>(n));
+    vector<pair<int, int>> cuts(k);
+    g.clear();
+
+    for(int i = 0; i < k; i++){
+        int x, y;
+        cin >> x >> y;
+        mat[x][y] = 'X';
+        mat_rotated[y][(n-1)-x] = 'X';
     }
+    int color = 0;
     for(int i = 0; i < n; i++){
         int r = 0;
         int l = 0;
@@ -49,31 +51,30 @@ int main(){
             r = mat[i].find('X', l+1);
             resr = r;
             if(l == string::npos) l = 0;
-            if(r == string::npos) r = n-1;
+            if(r == string::npos) r = m-1;
             fill(horizontal[i].begin()+l, horizontal[i].begin()+r+1, color);
             color ++;
         }
     }
 
     for(int i  = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
+        for(int j = 0; j < m; j++){
             if(mat[i][j] == 'X'){
                 horizontal[i][j] = -1;
             }
         }
     }
 
-    for(int i = 0; i < n; i++){
-        string str;
-        for(int j = 0; j < n; j++){
-            str += mat[j][i];
-        }
-        mat_rotated[i] = str;
-    }
+    // for(int i = 0; i < n; i++){
+    //     string str;
+    //     for(int j = 0; j < n; j++){
+    //         str += mat[j][i];
+    //     }
+    //     mat_rotated[i] = str;
+    // }
 
     color = 0;
-    for(int i = 0; i < n; i++){
-        color++;
+    for(int i = 0; i < m; i++){
         int r = 0;
         int l = 0;
         int resl = 0;
@@ -90,10 +91,10 @@ int main(){
         }
     }
 
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < m; i++){
         for(int j = 0; j < n; j++){
-            if(mat_rotated[j][i] == 'X'){
-                vertical[j][i] = -1;
+            if(mat_rotated[i][j] == 'X'){
+                vertical[i][j] = -1;
             }
         }
     }
@@ -101,8 +102,8 @@ int main(){
     g.resize(150);
     used.resize(g.size());
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            if(horizontal[i][j] != -1 && vertical[j][i] != -1){
+        for(int j = 0; j < m; j++){
+            if(mat[i][j] != 'X'){
                 g[horizontal[i][j]].push_back(vertical[j][i]);
             }
         }
@@ -114,8 +115,9 @@ int main(){
         kuhn(i);
     }
 
-    cout << set<int>(match.begin(), match.end()).size()-1;
-    
+    auto gg = g;
 
+    cout << count_if(match.begin(), match.end(), [](int i){return i != -1;});
+    }
     return 0;
 }

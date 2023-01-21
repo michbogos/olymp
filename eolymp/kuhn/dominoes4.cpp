@@ -43,8 +43,8 @@ int main(){
         cin >> str;
         s.append(str);
     }
-    int empty = count_if(s.begin(), s.end(), [](char x){return (x == '.');});
-    g.resize(s.size() + 10);
+    int empty = count(s.begin(), s.end(), '.');
+    g.resize(s.size());
     for(int i = 0; i < s.size(); i++){
         if(color[i] == 0){
             if(s[i] == '.'){
@@ -83,6 +83,7 @@ int main(){
             }
         }
     }
+    auto gg = g;
     match.resize(g.size());
     match.assign(g.size(), -1);
     used.resize(g.size());
@@ -104,6 +105,5 @@ int main(){
     else{
         cout << "No\n";
     }
-    auto gg = g;
     return 0;
 }
