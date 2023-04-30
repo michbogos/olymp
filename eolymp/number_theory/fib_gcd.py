@@ -13,9 +13,9 @@ def fib(n):
         else:
             (current, next) = (p*current + q*next, q*current + (p+q)*next)
             n -= 1
-    
+            
     return current
 
 for line in stdin:
-    print(fib(int(line)))
+    print(fib(math.gcd(*[int(i) for i in line.split()]))%(10**18))
 
